@@ -1,6 +1,6 @@
 """User module containing User Model and UserType Enum """
 from enum import Enum
-from . import Tweet 
+from models.Tweet import Tweet 
 
 
 class UserType(Enum):
@@ -13,8 +13,15 @@ class UserType(Enum):
 class User:
     """Model class that holds the information for a user."""
 
-    def __init__(self, user_type):
-        self.id = None
+    def __init__(self, id, user_type):
+        self.id = id
         self.tweets = []
         self.user_type = user_type
         self.followers = []
+
+    @staticmethod
+    def create_user(filename, tweet_list, user_type):
+        id = filename.split('\\')[-1].split('.')[0]
+        U = User(id, user_type)
+        U.tweets = [Tweet(tweet, U) for tweet in tweet_list]
+
