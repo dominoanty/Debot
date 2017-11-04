@@ -24,4 +24,5 @@ class User:
         id = filename.split('\\')[-1].split('.')[0]
         U = User(id, user_type)
         U.tweets = [Tweet(tweet, U) for tweet in tweet_list]
+        return U
 
