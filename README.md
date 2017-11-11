@@ -28,4 +28,5 @@ This contains the pre trained gLoVe model that is used to get word-vector repres
 Since I had trouble finding suitable datasets for this project, here is whatever I've found : 
 
 (Cresci 2017) - https://botometer.iuni.iu.edu/bot-repository/datasets.html
+
 (ASONAM Honeypot 2015) - http://www.public.asu.edu/~fmorstat/bottutorial/ Many of the tweets in this dataset are in Arabic which is a bit disappointing. Also since it is older, a lot of the accounts have already been suspended.
