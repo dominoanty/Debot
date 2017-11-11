@@ -2,6 +2,7 @@
 Twitter bot detection using deep learning. This project is structured as following : 
 ## Running 
 python -i App.py (interactive mode to play around with the data)
+
 Disclaimer : Currently missing a LOT of files required for running (eg. datasets, database files, word2vec etc.)
 
 ## Requirements
