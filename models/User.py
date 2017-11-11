@@ -18,6 +18,8 @@ class User:
         self.tweets = []
         self.user_type = user_type
         self.followers = []
+        self.followers_count = None
+        self.following_count = None
 
     @staticmethod
     def create_user(filename, tweet_list, user_type):
