@@ -17,8 +17,9 @@ This holds the utilities for the project. Mainly stores datasets and the scripts
 ## keras
 Placeholder
 ## models
-Currently, 2 models are defined:
-### Tweet
-### User
+Currently, 3 models are defined:
+* Tweet
+* User
+* UserMaker
 ## vectorize
 This contains the pre trained gLoVe model that is used to get word-vector representations (https://nlp.stanford.edu/projects/glove/). The gLoVe model was converted to a Word2Vec model (easier for processing) using Gensim. 
