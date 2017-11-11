@@ -1,12 +1,11 @@
 """User module containing User Model and UserType Enum """
 from enum import Enum
-from models.Tweet import Tweet 
+from models.Tweet import Tweet
+from models.ArabicError import ArabicError
 
 
 class UserType(Enum):
     """The type of the user. Currently Human -> 0 and Bot -> 1"""
-
-
     HUMAN = 0
     BOT = 1
 
@@ -25,6 +24,9 @@ class User:
     def create_user(filename, tweet_list, user_type):
         id = filename.split('\\')[-1].split('.')[0]
         U = User(id, user_type)
-        U.tweets = [Tweet(tweet, U) for tweet in tweet_list]
+        try:
+            U.tweets = [Tweet(tweet, U) for tweet in tweet_list]
+        except ArabicError as A:
+            return None
         return U
 

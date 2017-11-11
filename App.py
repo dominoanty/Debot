@@ -30,7 +30,7 @@ class UserMaker():
             if len(tweet_list) < 100:
                 return None
             else:
-                return User.create_user(filename, tweet_list, user_type)
+                return User.create_user(filename, tweet_list, user_type) # Returns None if arabic characters found
 
 if __name__ == "__main__":
     UM = UserMaker()
