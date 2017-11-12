@@ -74,7 +74,7 @@ def get_legit_users(user_list):
 
     print([user.lang for user in result])
     real_result = [(str(user.id), user_status[str(user.id)])
-                   for user in result if user.lang == 'en']
+                   for user in result if 'en' in user.lang]
     with open('temp.txt', 'w') as outfile:
         for result in real_result:
             outfile.write(','.join(result))
@@ -123,7 +123,7 @@ def get_tweet_for_user(user):
 def users_to_db(conn, user_list, source):
     cursor = conn.cursor()
     for user, status in user_list:
-        cursor.execute('insert into users values(?,?,?)',
+        cursor.execute('insert into users values(?,?,?,\'false\')',
                        (user, status, source,))
     conn.commit()
 
@@ -133,16 +133,18 @@ def set_processed(conn, user_id):
     cur.execute(statement)
     conn.commit()
 
-def db_to_users(conn, user_type=None):
+def db_to_users(conn, user_type=None, source=None):
 
     statement = "SELECT * FROM users WHERE processed=\'false\' "
     cur = conn.cursor()
 
     if user_type == 'bot':
-        statement += "and status = \'bot\'"
+        statement += " and status = \'bot\'"
     elif user_type == 'human':
-        statement += "and status = \'human\'"
+        statement += " and status = \'human\'"
     
+    if source is not None:
+        statement += " and source = \'" + source + "\'"
     cur.execute(statement)
     rows = cur.fetchall()
     return rows
