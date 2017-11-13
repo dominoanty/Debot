@@ -53,14 +53,22 @@ class DatasetMaker():
         self.req_bot_tweets = params.SPAM_RATIO * self.no_human_tweets / (1 - params.SPAM_RATIO)
 
         # Currently using averages, can be switched to definite amounts later
-        self.avg_bot_tweets = float(self.no_bot_tweets)/len(self.bot_users)
-        self.less_bots_by = self.no_bot_tweets - self.req_bot_tweets
-        self.less_bots_by = int(self.less_bots_by / self.avg_bot_tweets)
+        self.new_bot_users = []
+        self.new_bot_tweets = 0
+        for user in self.bot_users:
+            self.new_bot_users.append(user)
+            self.new_bot_tweets += user.num_tweets
+            if self.new_bot_tweets > self.req_bot_tweets:
+                break
+        
+        
 
-        self.bot_users = self.bot_users[:len(self.bot_users) - self.less_bots_by]
+        #self.bot_users = self.bot_users[:len(self.bot_users) - self.less_bots_by]
+        self.bot_users = self.new_bot_users
         
         human_div = int(len(self.human_users) * params.TRAIN_RATIO)
         bot_div = int(len(self.bot_users)* params.TRAIN_RATIO )
+        
         self.train_users = self.human_users[: human_div]
         self.train_users += self.bot_users[: bot_div]
         self.test_users = self.human_users[human_div : ]
