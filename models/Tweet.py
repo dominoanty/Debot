@@ -3,11 +3,10 @@ Module for Tweet and any subsequent functions that the model might require
 
 """
 import params
-from vectorize.vectorize import model
-from nltk.tokenize import TweetTokenizer
+from vectorize.vectorize import model, BLANK_VECTOR, vectorize_filter
+from vectorize.preprocess import tokenize_filter, lemmatize_filter
 from models.ArabicError import ArabicError
 
-tweet_tokenizer = TweetTokenizer()
 
 class Tweet:
     """ Model class for a Tweet. """
@@ -20,8 +19,9 @@ class Tweet:
             if params.ARABIC_TESTER.search(self.text) is not None:
                 raise ArabicError("Text contains arabic!")
 
-            self.tokenized_text = None
-            self.vector_form = None
+            self.vector_form =  vectorize_filter(
+                                    lemmatize_filter(
+                                        tokenize_filter(self.text)))
             self.time = tweet["created_at"]
             self.user = user
 
@@ -32,9 +32,3 @@ class Tweet:
 
         except ValueError as VE:
             return None
-    
-    def tokenize_tweet(self):
-        self.tokenized_text = tweet_tokenizer.tokenize(self.text)
-
-    def vectorize_tweet(self):
-        pass

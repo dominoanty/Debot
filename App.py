@@ -6,7 +6,7 @@ import logging
 import pickle
 import os
 from random import shuffle
-from models.User import User, UserType
+from models.User import User, UserType, UserData
 from models.Tweet import Tweet
 # from utils.logging import LogMixin
 
@@ -18,10 +18,11 @@ class UserMaker():
 
     def scan_dir(self, directory, user_type):
         for filename in os.listdir(directory):
-            self.users.append(self.load_from_file(
+            new_user = self.load_from_file(
                 os.path.join(directory, str(filename)),
-                user_type
-            ))
+                user_type)
+            
+            self.users.append(new_user)
         self.users = list(filter(lambda x : True if x is not None else False, self.users))
 
     def load_from_file(self, filename, user_type):
@@ -44,15 +45,16 @@ class DatasetMaker():
                                      else False, UM.users))
         shuffle(self.bot_users)
 
-        self.human_tweets = [tweet  for user in self.human_users for tweet in user.tweets]
-        self.bot_tweets = [tweet  for bot in self.bot_users for tweet in bot.tweets]
+        self.no_human_tweets = sum([x.num_tweets for x in self.human_users])
+        self.no_bot_tweets = sum([x.num_tweets for x in self.bot_users])
+
 
         # The ratio of bot : human tweets should be in spam ratio
-        self.req_bot_tweets = params.SPAM_RATIO * len(self.human_tweets) / (1 - params.SPAM_RATIO)
+        self.req_bot_tweets = params.SPAM_RATIO * self.no_human_tweets / (1 - params.SPAM_RATIO)
 
         # Currently using averages, can be switched to definite amounts later
-        self.avg_bot_tweets = float(len(self.bot_tweets))/len(self.bot_users)
-        self.less_bots_by = len(self.bot_tweets) - self.req_bot_tweets
+        self.avg_bot_tweets = float(self.no_bot_tweets)/len(self.bot_users)
+        self.less_bots_by = self.no_bot_tweets - self.req_bot_tweets
         self.less_bots_by = int(self.less_bots_by / self.avg_bot_tweets)
 
         self.bot_users = self.bot_users[:len(self.bot_users) - self.less_bots_by]
