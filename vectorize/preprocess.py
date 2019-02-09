@@ -16,7 +16,7 @@ def tokenize_filter(tweet):
     for token in word_list:
         if token.startswith("@"):
             new_list.append('mention')
-        elif token.startswith("https") or token.startswith("www."):
+        elif token.startswith("http") or token.startswith("www."):
             new_list.append('url')
         elif token.startswith('#'):
             new_list.append('hashtag')

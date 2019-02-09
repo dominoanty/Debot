@@ -1,7 +1,7 @@
 """User module containing User Model and UserType Enum """
 from enum import Enum
-from models.Tweet import Tweet
-from models.ArabicError import ArabicError
+from .Tweet import Tweet
+from .ArabicError import ArabicError
 
 from vectorize.vectorize import model, BLANK_VECTOR, vectorize_filter
 from vectorize.preprocess import tokenize_filter, lemmatize_filter
@@ -34,7 +34,23 @@ class User:
         self.verified_status = None
 
     @staticmethod
-    def create_user(filename, tweet_list, user_type):
+    def create_user_uk(id, tweet_list):
+        U = User(id, 2)
+        U.tweets = [Tweet(tweet, U) for tweet in tweet_list]
+        U.followers_count = tweet_list[0]['user']['followers_count']
+        U.following_count = tweet_list[0]['user']['friends_count']
+        U.verified_status = tweet_list[0]['user']['verified']
+        for tweet in U.tweets:
+            tweet.vector_form =  vectorize_filter(
+                                    lemmatize_filter(
+                                        tokenize_filter(tweet.text)))
+        return U
+
+
+
+
+    @staticmethod
+    def create_user(filename, tweet_list, user_type, id=None):
         id = filename.split('\\')[-1].split('.')[0]
         U = User(id, user_type)
         try:

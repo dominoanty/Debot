@@ -1,0 +1,16 @@
+{
+  "name": "botspot",
+  "version": "1.0.0",
+  "description": "Detect bots from Twitter",
+  "main": "src/botDetect.js",
+  "dependencies": {
+    "arrive": "^2.4.1",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ranganath Pai",
+  "license": "ISC"
+}

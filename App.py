@@ -17,6 +17,10 @@ class UserMaker():
         self.users = []
 
     def scan_dir(self, directory, user_type):
+        '''
+        Given a directory and user type, for each file, calls load_from_file (creates user and pickles),
+        and then creates list of UserData[] objects.
+        '''
         for filename in os.listdir(directory):
             new_user = self.load_from_file(
                 os.path.join(directory, str(filename)),
@@ -26,6 +30,9 @@ class UserMaker():
         self.users = list(filter(lambda x : True if x is not None else False, self.users))
 
     def load_from_file(self, filename, user_type):
+        '''
+        Given a file and usertype, loads the file, pickles it and then returns UserData only. 
+        '''
         print("Loading file : " + filename)
         with open(filename) as data_file:
             tweet_list = json.load(data_file)
@@ -36,6 +43,9 @@ class UserMaker():
                 return User.create_user(filename, tweet_list, user_type) # Returns None if arabic characters found
 
 class DatasetMaker():
+    '''
+    Used to create training and test datasets. Balances the ratio of normal : spam tweets in the ratio (params.SPAM_RATIO)
+    '''
 
     def __init__(self, UM):
         self.human_users = list(filter(lambda x: True if x.user_type == UserType.HUMAN
@@ -61,8 +71,6 @@ class DatasetMaker():
             if self.new_bot_tweets > self.req_bot_tweets:
                 break
         
-        
-
         #self.bot_users = self.bot_users[:len(self.bot_users) - self.less_bots_by]
         self.bot_users = self.new_bot_users
         

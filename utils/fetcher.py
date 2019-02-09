@@ -1,4 +1,4 @@
-import twitter_conf as tc
+from . import twitter_conf as tc
 from tweepy import TweepError
 import sqlite3
 from sqlite3 import Error

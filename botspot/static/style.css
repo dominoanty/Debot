@@ -1,0 +1,60 @@
+.bs_item{
+    background-color:#eb4040;
+    padding:0px 5px 5px 5px;
+    border-radius:4px;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    margin-left:59px;
+}
+.bs_heading{
+    padding-top:5px;
+  margin-left:5px;
+  color:#000;
+}
+.bs_correction{
+    padding-bottom:0px;
+}
+.bs_guess, 
+.bs_heading,
+.bs_loading,
+.bs_confidence, 
+.bs_dhuman, 
+.bs_dbot, 
+.bs_ack, 
+.bs_correction, 
+.bs_bot, 
+.bs_human{
+    display:inline-block;
+}
+.bs_guess, .bs_ack{
+  display:none;
+}
+
+.bs_bot, .bs_human {
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  text-shadow: 1px 1px 2px #666666;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 3px 7px 3px 7px;
+  border: solid #ffa1a1 2px;
+}
+.bs_bot{
+    background: #eb4040;
+}
+.bs_human{
+    background: #4040aa;
+}
+.bs_bot:hover {
+  background: #e82c2c;
+}
+.bs_human:hover{
+  background: #2c2ce8;
+
+}
+.bs_confidence{
+  margin-left:5px;
+}
+.bs_loading{
+  margin-left:20px;
+}

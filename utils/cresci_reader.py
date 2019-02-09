@@ -11,7 +11,7 @@ def read_file(filename):
 
             comps = line.split()
             user_id = str(comps[0]).replace(',','')
-            user_is = 'bot'
+            user_is = 'human'
             user_list.append((user_id, user_is))
 
     return user_list
@@ -27,8 +27,9 @@ def rf_helper(filename):
 
 if __name__ == "__main__":
     #rf_helper('social2')
-    rf_helper('social3')
-    rf_helper('trad1')
-    rf_helper('trad2')
-    rf_helper('trad3')
-    rf_helper('trad4')
+    #rf_helper('social3')
+    #rf_helper('trad1')
+    #rf_helper('trad2')
+    #rf_helper('trad3')
+    #rf_helper('trad4')
+    rf_helper('human')

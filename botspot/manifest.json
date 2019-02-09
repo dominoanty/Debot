@@ -1,0 +1,19 @@
+{
+    "name": "BotSpot",
+    "version": "0.1",
+    "description": "Identify bots on Twitter",
+    "manifest_version" : 2,
+    "permissions": ["https://*.twitter.com/", "http://*.twitter.com/", "http://*/", "http://*/*"],
+    "background":{
+        "scripts": ["dist/background.bundle.js"],
+        "persistent":true
+    },
+    "content_scripts" : [
+        {
+            "matches" : ["http://*.twitter.com/", "https://twitter.com/"],
+            "css" : ["static/style.css"],
+            "js" : ["dist/content.bundle.js"]
+        }
+    ],
+    "web_accessible_resources" : ["static/item.html", "static/styles.css"]
+}

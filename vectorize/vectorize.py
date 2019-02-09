@@ -1,5 +1,6 @@
 import gensim
 import os
+
 import params
 
 BLANK_VECTOR = [0 for i in range(200)]
